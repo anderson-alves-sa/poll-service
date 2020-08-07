@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 import static org.springframework.util.Assert.notNull;
 
@@ -24,9 +23,9 @@ public final class PollService {
         return pollRepository.findByCreatedOnAfter(createdDate);
     }
 
-    public List<Poll> getPollsByUserId(final UUID userId) {
-        notNull(userId, "user id must not be null");
-        return pollRepository.findAllByUserId(userId);
+    public List<Poll> getPollsByUserId(final String initiatorEmail) {
+        notNull(initiatorEmail, "user id must not be null");
+        return pollRepository.findAllByInitiatorEmail(initiatorEmail);
     }
 
 }
