@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 import java.util.logging.Logger;
 
 import static java.lang.String.format;
@@ -34,10 +33,10 @@ public final class PollController {
         return pollService.getPollsCreatedAfter(createdAfter);
     }
 
-    @GetMapping("/polls/user/{id}")
-    public List<Poll> getPollsByUserId(@PathVariable(value = "id") final UUID userId) {
-        LOGGER.info(format("searching polls created by user: %s", userId));
-        return pollService.getPollsByUserId(userId);
+    @GetMapping("/polls/user/{initiatorEmail}")
+    public List<Poll> getPollsByUserId(@PathVariable(value = "initiatorEmail") final String initiatorEmail) {
+        LOGGER.info(format("searching polls created by user: %s", initiatorEmail));
+        return pollService.getPollsByUserId(initiatorEmail);
     }
 
 }
