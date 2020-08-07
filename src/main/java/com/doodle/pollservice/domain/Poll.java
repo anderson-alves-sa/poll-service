@@ -1,26 +1,34 @@
 package com.doodle.pollservice.domain;
 
-import javax.persistence.*;
-import java.io.Serializable;
+import org.springframework.data.annotation.Id;
+
 import java.util.Date;
 import java.util.UUID;
 
-@Entity
-@Table(schema = "poll_service", name = "poll")
-public class Poll implements Serializable {
+public class Poll {
+
+    public Poll() {
+
+    }
+
+    public Poll(String id, String title, Date createdOn, UUID userId) {
+        this.id = id;
+        this.title = title;
+        this.createdOn = createdOn;
+        this.userId = userId;
+    }
 
     @Id
-    private UUID id;
+    private String id;
     private String title;
-    @Temporal(TemporalType.DATE)
     private Date createdOn;
     private UUID userId;
 
-    public UUID getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(String id) {
         this.id = id;
     }
 
