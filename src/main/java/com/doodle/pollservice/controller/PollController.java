@@ -11,7 +11,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import java.util.logging.Logger;
 
 import static java.lang.String.format;
