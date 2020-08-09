@@ -1,5 +1,6 @@
 package com.doodle.pollservice.handler;
 
+import com.doodle.pollservice.service.exception.NotFoundException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,9 +18,19 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
     protected ResponseEntity<Object> handleConflict(RuntimeException runtimeException, WebRequest webRequest) {
         return handleExceptionInternal(
                 runtimeException,
-                format("Exception while running:", runtimeException.getMessage()),
+                format("Conflict in request: [%s]", runtimeException.getMessage()),
                 new HttpHeaders(),
                 HttpStatus.CONFLICT,
+                webRequest);
+    }
+
+    @ExceptionHandler(value = {NotFoundException.class})
+    protected ResponseEntity<Object> handleNotFound(RuntimeException runtimeException, WebRequest webRequest) {
+        return handleExceptionInternal(
+                runtimeException,
+                format("Object not found: [%s]", runtimeException.getMessage()),
+                new HttpHeaders(),
+                HttpStatus.NOT_FOUND,
                 webRequest);
     }
 
