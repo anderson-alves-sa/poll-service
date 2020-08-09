@@ -1,12 +1,13 @@
 package com.doodle.pollservice.domain;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
+@Document(collection = "polls")
 public final class Poll {
 
     public Poll() {
@@ -32,7 +33,7 @@ public final class Poll {
     private Boolean hidden;
     private PreferencesType preferencesType;
     private State state;
-    private Locale locale;
+    private String locale;
     private String title;
     private Initiator initiator;
     private List<Option> options;
@@ -136,11 +137,11 @@ public final class Poll {
         this.state = state;
     }
 
-    public Locale getLocale() {
+    public String getLocale() {
         return locale;
     }
 
-    public void setLocale(Locale locale) {
+    public void setLocale(String locale) {
         this.locale = locale;
     }
 
