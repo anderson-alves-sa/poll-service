@@ -52,7 +52,7 @@ public class PollControllerTest {
     private PollRepository pollRepository;
 
     @Test
-    public void getPollsCreatedAfter() {
+    public void searchPollsCreatedAfter() {
         final List<Poll> pollsCreatedAfter = Arrays.asList(
                 this.testRestTemplate.getForObject(format("%s:%d/polls/?createdAfter=%s", HOST, port, CREATED_ON), Poll[].class));
 
@@ -61,7 +61,22 @@ public class PollControllerTest {
     }
 
     @Test
-    public void getPollsByUserEmail() {
+    public void searchPollsByTitle() {
+        final List<Poll> pollsCreatedAfter = Arrays.asList(
+                this.testRestTemplate.getForObject(format("%s:%d/polls/?title=%s", HOST, port, POLL_1_TITLE), Poll[].class));
+
+        assertThat(pollsCreatedAfter.size()).isEqualTo(1);
+    }
+
+    @Test
+    public void searchWithoutParameters() {
+        final ResponseEntity<String> response = this.testRestTemplate.getForEntity(format("%s:%d/polls/", HOST, port), String.class);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CONFLICT);
+    }
+
+    @Test
+    public void searchPollsByUserEmail() {
         final List<Poll> pollsCreatedByUser = Arrays.asList(
                 this.testRestTemplate.getForObject(format("%s:%d/polls/user/%s", HOST, port, POLL_3_USER_EMAIL), Poll[].class));
 

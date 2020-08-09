@@ -21,7 +21,7 @@ public final class PollService {
         this.pollRepository = pollRepository;
     }
 
-    public List<Poll> getPollsCreatedAfter(final Date createdDate) {
+    public List<Poll> searchPollsCreatedAfter(final Date createdDate) {
         notNull(createdDate, "created date must not be null");
         return pollRepository.findByCreatedOnAfter(createdDate);
     }
@@ -38,9 +38,9 @@ public final class PollService {
         pollRepository.save(poll);
     }
 
-    public void deletePoll(final String pollId) {
-        notNull(pollId, "poll id must not be null");
-        pollRepository.deleteById(pollId);
+    public void deletePoll(final String id) {
+        notNull(id, "poll id must not be null");
+        pollRepository.deleteById(id);
     }
 
     public Poll getPollById(final String id) {
@@ -48,4 +48,8 @@ public final class PollService {
         return pollRepository.findById(id).orElseThrow(() -> new NotFoundException(format("poll id [%s] not found", id)));
     }
 
+    public List<Poll> searchPollsByTitle(final String title) {
+        notNull(title, "poll title must not be null");
+        return pollRepository.findAllByTitleStartingWith(title);
+    }
 }

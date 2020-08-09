@@ -1,6 +1,7 @@
 package com.doodle.pollservice.domain;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
@@ -34,6 +35,7 @@ public final class Poll {
     private PreferencesType preferencesType;
     private State state;
     private String locale;
+    @Indexed
     private String title;
     private Initiator initiator;
     private List<Option> options;

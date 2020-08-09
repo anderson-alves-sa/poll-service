@@ -14,4 +14,6 @@ public interface PollRepository extends MongoRepository<Poll, String> {
 
     List<Poll> findAllByInitiatorEmail(String email);
 
+    List<Poll> findAllByTitleStartingWith(String title);
+
 }

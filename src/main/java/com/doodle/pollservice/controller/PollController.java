@@ -11,6 +11,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import static java.lang.String.format;
@@ -27,9 +28,11 @@ public final class PollController {
     }
 
     @GetMapping("/")
-    public List<Poll> getPollsCreatedAfter(@RequestParam(name = "createdAfter") @DateTimeFormat(pattern = "dd.MM.yyyy") final Date createdAfter) {
-        LOGGER.info(format("searching polls created after: %s", createdAfter));
-        return pollService.getPollsCreatedAfter(createdAfter);
+    @ResponseStatus(code = HttpStatus.OK)
+    public List<Poll> searchPolls(@RequestParam(name = "createdAfter", required = false) @DateTimeFormat(pattern = "dd.MM.yyyy") final Date createdAfter,
+                                  @RequestParam(value = "title", required = false) final String title) {
+        LOGGER.info(format("searching polls by criteria: %s %s", createdAfter, title));
+       return createdAfter != null ? pollService.searchPollsCreatedAfter(createdAfter) : pollService.searchPollsByTitle(title);
     }
 
     @GetMapping("/user/{initiatorEmail}")
